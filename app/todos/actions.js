@@ -29,7 +29,7 @@ export async function createTodo(formData) {
   }
 }
 
-export async function toggleTodo(id) {
+export async function toggleTodoAction(id) {
   try {
     await connectDB();
     const todo = await Todo.findById(id);
@@ -46,6 +46,22 @@ export async function toggleTodo(id) {
   } catch (error) {
     console.error('Error toggling todo:', error);
     return { error: 'Failed to toggle todo: ' + error.message };
+  }
+}
+
+export async function deleteTodoAction(id) {
+  try {
+    await connectDB();
+    const deleted = await Todo.findByIdAndDelete(id);
+    if (!deleted) {
+      return { error: 'Todo not found' };
+    }
+
+    revalidatePath('/todos');
+    return { success: true };
+  } catch (error) {
+    console.error('Error deleting todo:', error);
+    return { error: 'Failed to delete todo: ' + error.message };
   }
 }
 
@@ -73,21 +89,5 @@ export async function updateTodo(id, formData) {
   } catch (error) {
     console.error('Error updating todo:', error);
     return { error: 'Failed to update todo: ' + error.message };
-  }
-}
-
-export async function deleteTodo(id) {
-  try {
-    await connectDB();
-    const deleted = await Todo.findByIdAndDelete(id);
-    if (!deleted) {
-      return { error: 'Todo not found' };
-    }
-
-    revalidatePath('/todos');
-    return { success: true };
-  } catch (error) {
-    console.error('Error deleting todo:', error);
-    return { error: 'Failed to delete todo: ' + error.message };
   }
 }
