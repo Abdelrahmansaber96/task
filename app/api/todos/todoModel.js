@@ -9,4 +9,5 @@ const todosSchema = new Schema({
   updatedAt: { type: Date, default: Date.now }
 });
 
-export default  mongoose.model('Todo', todosSchema);
+// Prevent model overwrite error in serverless environments
+export default mongoose.models.Todo || mongoose.model('Todo', todosSchema);
