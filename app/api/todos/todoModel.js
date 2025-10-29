@@ -9,7 +9,6 @@ const todosSchema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-// التحقق إذا الموديل موجود بالفعل
 const Todo = mongoose.models.Todo || mongoose.model('Todo', todosSchema);
 
 export default Todo;
