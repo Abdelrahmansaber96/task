@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const mongoURI = 'mongodb://127.0.0.1:27017/todoApp';
+const mongoURI = 'mongodb+srv://abdusaber130_db_user:2vkEVsONMIxORyM8@nextapp.kj1s3nk.mongodb.net/?appName=nextapp';
 
 let cachedConnection = null;
 
